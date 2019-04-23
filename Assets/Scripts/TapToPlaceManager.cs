@@ -18,7 +18,9 @@ public class TapToPlaceManager : MonoBehaviour
     private bool placementPoseIsValid = false;
     public GameObject[] lanterns;
     public int totalLanterns = 0;
-
+    public InputField inputField;
+    public GameObject inputPanel;
+    public string laternText;
     void Start()
     {
         lanterns = new GameObject[200];
@@ -39,12 +41,22 @@ public class TapToPlaceManager : MonoBehaviour
         speedText.text = "Speed: " + speed;
     }
 
+    public void AddText()
+    {
+        inputPanel.SetActive(false);
+        if (inputField.text!="")
+        {
+            laternText = inputField.text;
+        }
+    }
+
     public void PlaceObject()
     {
         if (totalLanterns < 199)
         {
 
             GameObject lantern = Instantiate(objectToPlace, placementPose.position, placementPose.rotation);
+            lantern.transform.GetChild(2).gameObject.GetComponent<Text>().text=laternText;
             totalLanterns++;
             lanterns[totalLanterns] = lantern;
 

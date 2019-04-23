@@ -5,8 +5,8 @@ using UnityEngine;
 public class LanternManager : MonoBehaviour
 {
     public bool move = false ;
-    float x=0;
-    float z=0;
+    float x=0.1f;
+    float z=0.1f;
     // Update is called once per frame
     void Update()
     {
@@ -20,8 +20,16 @@ public class LanternManager : MonoBehaviour
     {
 
         move = true;
-        x = Random.Range(-0.01f,0.01f);
-        z = Random.Range(-0.01f,0.01f);
+        if (Random.Range(0,100)%2==0)
+        {
+            x = -x;
+           
+        }
+        if (Random.Range(0, 100) % 2 == 0)
+        {
+            z = -z;
+
+        }
 
     }
 }
