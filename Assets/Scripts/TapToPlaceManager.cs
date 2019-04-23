@@ -4,17 +4,24 @@ using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.Experimental.XR;
 using System;
+using UnityEngine.UI;
 public class TapToPlaceManager : MonoBehaviour
 {
     public GameObject objectToPlace;
     public GameObject placementIndicator;
+    public Slider speedSlider;
+    public static float speed=1;
+    public Text speedText;
 
     public ARSessionOrigin arOrigin;
     private Pose placementPose;
     private bool placementPoseIsValid = false;
+    public GameObject[] lanterns;
+    public int totalLanterns = 0;
+
     void Start()
     {
-        
+        lanterns = new GameObject[200];
     }
 
     // Update is called once per frame
@@ -26,9 +33,35 @@ public class TapToPlaceManager : MonoBehaviour
 
     }
 
+    public void OnSpeedChanged()
+    {
+        speed = speedSlider.value;
+        speedText.text = "Speed: " + speed;
+    }
+
     public void PlaceObject()
     {
-        Instantiate(objectToPlace, placementPose.position, placementPose.rotation);
+        if (totalLanterns < 199)
+        {
+
+            GameObject lantern = Instantiate(objectToPlace, placementPose.position, placementPose.rotation);
+            totalLanterns++;
+            lanterns[totalLanterns] = lantern;
+
+        }
+
+    }
+
+    public void Release()
+    {
+        if (totalLanterns>0)
+        {
+
+            lanterns[totalLanterns].GetComponent<LanternManager>().Fly();
+            totalLanterns--;
+
+        }
+
     }
 
     private void UpdatePlacementIndicator()
