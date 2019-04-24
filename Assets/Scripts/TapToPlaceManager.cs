@@ -13,6 +13,7 @@ public class TapToPlaceManager : MonoBehaviour
     public static float speed=1;
     public Text speedText;
 
+    public Button AddButton;
     public ARSessionOrigin arOrigin;
     private Pose placementPose;
     private bool placementPoseIsValid = false;
@@ -59,7 +60,7 @@ public class TapToPlaceManager : MonoBehaviour
             lantern.transform.GetChild(2).gameObject.GetComponent<Text>().text=laternText;
             totalLanterns++;
             lanterns[totalLanterns] = lantern;
-
+            AddButton.interactable = false;
         }
 
     }
